@@ -27,13 +27,14 @@ int check_words(FILE* fp, hashmap_t hashtable[], char * misspelled[]) {
     char * token= NULL;
     char * rest= NULL;
     char * word= NULL;
+    bool check;
     while((read = getline(&line, &len, fp)) != EOF){
         for (token = strtok_r(line, " ", &rest); token != NULL; token = strtok_r(NULL, " ", &rest)) {
             for (int i = 0; i < strlen(token); i++) {
                 token[i] = tolower(token[i]);
             }
             word = strip_punc(token);
-            if(!check_word(word, hashtable)){
+            if((check = check_word(word, hashtable)) == false){
                 misspelled[num_misspelled] = word;
                 num_misspelled += 1;
             }
