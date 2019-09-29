@@ -19,6 +19,19 @@ char* strip_punc(char *s) {
   return s;
 }
 
+bool check_word(const char* word, hashmap_t hashtable[]) {
+    int bucket = hash_function(word);
+    hashmap_t cursor = hashtable[bucket];
+    while(cursor != NULL){
+        if(word == cursor->word){
+            return true;
+        }
+        cursor = cursor->next;
+    }
+    free(cursor);
+    return false;
+}
+
 int check_words(FILE* fp, hashmap_t hashtable[], char * misspelled[]) {
     int num_misspelled = 0;
     size_t len = 0;
@@ -85,17 +98,4 @@ bool load_dictionary(const char* dictionary_file, hashmap_t
     }
     fclose(fp);
     return true;
-}
-
-bool check_word(const char* word, hashmap_t hashtable[]) {
-    int bucket = hash_function(word);
-    hashmap_t cursor = hashtable[bucket];
-    while(cursor != NULL){
-        if(word == cursor->word){
-            return true;
-        }
-        cursor = cursor->next;
-    }
-    free(cursor);
-    return false;
 }
