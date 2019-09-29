@@ -11,7 +11,6 @@
 
 #include <stdbool.h>
 #include <stdio.h>
-#include "spell.h"
 
 // maximum length for a word
 // (e.g., pneumonoultramicroscopicsilicovolcanoconiosis)
